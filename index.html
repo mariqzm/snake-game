@@ -34,12 +34,14 @@
 <body>
   <h1>Snake</h1>
   <canvas id="canvas"></canvas>
-  <script>
+ <script>
   const COLS = 20, ROWS = 20, CELL = 24;
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   canvas.width = COLS * CELL;
   canvas.height = ROWS * CELL;
+
+  let snake = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}];
 
   function drawGrid() {
     ctx.fillStyle = '#111';
@@ -54,7 +56,21 @@
     }
   }
 
-  drawGrid();
+  function drawSnake() {
+    snake.forEach((seg, i) => {
+      ctx.fillStyle = i === 0 ? '#86efac' : (i % 2 === 0 ? '#4ade80' : '#22c55e');
+      ctx.beginPath();
+      ctx.roundRect(seg.x * CELL + 2, seg.y * CELL + 2, CELL - 4, CELL - 4, 5);
+      ctx.fill();
+    });
+  }
+
+  function draw() {
+    drawGrid();
+    drawSnake();
+  }
+
+  draw();
 </script>
 </body>
 </html>
