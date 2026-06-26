@@ -87,21 +87,7 @@ function step() {
     drawGameOver();
     return;
   }
-  snake.unshift(head);
-  if (head.x === food.x && head.y === food.y) {
-    score++;
-    scoreEl.textContent = score;
-    if (score > best) {
-      best = score;
-      bestEl.textContent = best;
-      localStorage.setItem('snakeBest', best);
-    }
-    placeFood();
-  } else {
-    snake.pop();
-  }
-  draw();
-}
+  
 
 function start() {
   init();
@@ -127,4 +113,19 @@ document.addEventListener('keydown', e => {
 });
 
 init();
-draw();
+draw();snake.unshift(head);
+  if (head.x === food.x && head.y === food.y) {
+ console.log('ate food!', head, food);
+    score++;
+    scoreEl.textContent = score;
+    if (score > best) {
+      best = score;
+      bestEl.textContent = best;
+      localStorage.setItem('snakeBest', best);
+    }
+    placeFood();
+  } else {
+    snake.pop();
+  }
+  draw();
+}
