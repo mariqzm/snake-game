@@ -124,5 +124,4 @@ document.addEventListener('keydown', e => {
   if (e.key === ' ') { e.preventDefault(); if (!running) start(); }
 });
 
-init();
-draw();
+start();
