@@ -29,10 +29,27 @@
       background: #111;
       display: block;
     }
+    .hud {
+     display: flex;
+     gap: 2.5rem;
+     margin-bottom: 1rem;
+     font-size: 0.85rem;
+     letter-spacing: 0.15em;
+     color: #888;
+    }
+     .hud span {
+      color: #4ade80; 
+      font-weight: bold;
+      font-size: 1rem; 
+    }
+
   </style>
 </head>
 <body>
   <h1>Snake</h1>
+  <div class="hud">SCORE:&nbsp;
+  <span id="score">0</span>&nbsp;&nbsp;&nbsp;BEST:&nbsp;
+  <span id="best">0</span></div>
   <canvas id="canvas"></canvas>
 <script>
   const COLS = 20, ROWS = 20, CELL = 24;
@@ -42,7 +59,13 @@
   canvas.height = ROWS * CELL;
 
   let snake, dir, nextDir, food, running, interval;
-
+  
+  let score, best;
+   best = parseInt(localStorage.getItem('snakeBest') || '0');
+   scoreEl = document.getElementById('score');
+   const bestEl = document.getElementById('best');
+   bestEl.textContent = best;
+   
   function init() {
     snake = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}];
     dir = {x: 1, y: 0};
