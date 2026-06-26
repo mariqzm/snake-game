@@ -124,4 +124,18 @@ document.addEventListener('keydown', e => {
   if (e.key === ' ') { e.preventDefault(); if (!running) start(); }
 });
 
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    if (!running) { start(); return; }
+    setDir(btn.dataset.dir);
+  });
+});
+
+function setDir(d) {
+  const map = {UP:{x:0,y:-1}, DOWN:{x:0,y:1}, LEFT:{x:-1,y:0}, RIGHT:{x:1,y:0}};
+  const nd = map[d];
+  if (nd && (nd.x !== -dir.x || nd.y !== -dir.y)) nextDir = nd;
+}
+
 start();
