@@ -44,6 +44,13 @@
   let snake = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}];
   let dir = {x: 1, y: 0};
   let nextDir = {x: 1, y: 0};
+  let food;
+
+  function placeFood() {
+    do {
+      food = {x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS)};
+    } while (snake.some(s => s.x === food.x && s.y === food.y));
+  }
 
   function drawGrid() {
     ctx.fillStyle = '#111';
@@ -67,16 +74,29 @@
     });
   }
 
+  function drawFood() {
+    const fx = food.x * CELL + CELL / 2, fy = food.y * CELL + CELL / 2, fr = CELL / 2 - 4;
+    ctx.fillStyle = '#f87171';
+    ctx.beginPath(); ctx.arc(fx, fy, fr, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#fca5a5';
+    ctx.beginPath(); ctx.arc(fx - fr * 0.25, fy - fr * 0.3, fr * 0.3, 0, Math.PI * 2); ctx.fill();
+  }
+
   function draw() {
     drawGrid();
     drawSnake();
+    drawFood();
   }
 
   function step() {
     dir = {...nextDir};
     const head = {x: snake[0].x + dir.x, y: snake[0].y + dir.y};
     snake.unshift(head);
-    snake.pop();
+    if (head.x === food.x && head.y === food.y) {
+      placeFood();
+    } else {
+      snake.pop();
+    }
     draw();
   }
 
@@ -94,6 +114,7 @@
     }
   });
 
+  placeFood();
   draw();
   setInterval(step, 150);
 </script>
