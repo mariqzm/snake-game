@@ -138,4 +138,27 @@ function setDir(d) {
   if (nd && (nd.x !== -dir.x || nd.y !== -dir.y)) nextDir = nd;
 }
 
+let touchStartX, touchStartY;
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  if (!touchStartX || !touchStartY) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
+    if (!running) start();
+    return;
+  }
+  if (Math.abs(dx) > Math.abs(dy)) {
+    setDir(dx > 0 ? 'RIGHT' : 'LEFT');
+  } else {
+    setDir(dy > 0 ? 'DOWN' : 'UP');
+  }
+  touchStartX = null; touchStartY = null;
+}, { passive: true });
+
 start();
