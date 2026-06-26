@@ -7,8 +7,6 @@ canvas.height = ROWS * CELL;
 const scoreEl = document.getElementById('score');
 const bestEl = document.getElementById('best');
 
-console.log('scoreEl:', scoreEl, 'bestEl:', bestEl); 
-
 let snake, dir, nextDir, food, running, interval, score;
 let best = parseInt(localStorage.getItem('snakeBest') || '0');
 bestEl.textContent = best;
@@ -87,7 +85,21 @@ function step() {
     drawGameOver();
     return;
   }
-  
+  snake.unshift(head);
+  if (head.x === food.x && head.y === food.y) {
+    score++;
+    scoreEl.textContent = score;
+    if (score > best) {
+      best = score;
+      bestEl.textContent = best;
+      localStorage.setItem('snakeBest', best);
+    }
+    placeFood();
+  } else {
+    snake.pop();
+  }
+  draw();
+}
 
 function start() {
   init();
@@ -113,19 +125,4 @@ document.addEventListener('keydown', e => {
 });
 
 init();
-draw();snake.unshift(head);
-  if (head.x === food.x && head.y === food.y) {
- console.log('ate food!', head, food);
-    score++;
-    scoreEl.textContent = score;
-    if (score > best) {
-      best = score;
-      bestEl.textContent = best;
-      localStorage.setItem('snakeBest', best);
-    }
-    placeFood();
-  } else {
-    snake.pop();
-  }
-  draw();
-}
+draw();
