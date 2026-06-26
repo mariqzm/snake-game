@@ -34,5 +34,27 @@
 <body>
   <h1>Snake</h1>
   <canvas id="canvas"></canvas>
+  <script>
+  const COLS = 20, ROWS = 20, CELL = 24;
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = COLS * CELL;
+  canvas.height = ROWS * CELL;
+
+  function drawGrid() {
+    ctx.fillStyle = '#111';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#161616';
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x <= COLS; x++) {
+      ctx.beginPath(); ctx.moveTo(x * CELL, 0); ctx.lineTo(x * CELL, canvas.height); ctx.stroke();
+    }
+    for (let y = 0; y <= ROWS; y++) {
+      ctx.beginPath(); ctx.moveTo(0, y * CELL); ctx.lineTo(canvas.width, y * CELL); ctx.stroke();
+    }
+  }
+
+  drawGrid();
+</script>
 </body>
 </html>
