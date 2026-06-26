@@ -7,6 +7,8 @@ canvas.height = ROWS * CELL;
 const scoreEl = document.getElementById('score');
 const bestEl = document.getElementById('best');
 
+console.log('scoreEl:', scoreEl, 'bestEl:', bestEl); 
+
 let snake, dir, nextDir, food, running, interval, score;
 let best = parseInt(localStorage.getItem('snakeBest') || '0');
 bestEl.textContent = best;
