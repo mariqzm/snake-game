@@ -1,5 +1,7 @@
 # 🐍 Snake Game
 
+![Snake gameplay](demo.gif)
+
 [![Maintainability](https://qlty.sh/gh/mariqzm/projects/snake-game/maintainability.svg)](https://qlty.sh/gh/mariqzm/projects/snake-game)
 
 Классическая игра Змейка на Vanilla JavaScript, HTML5 Canvas и CSS.
